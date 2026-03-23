@@ -580,6 +580,9 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
             upl.enabled = self.playblast_flag
 
             box_general.row().prop(self, "ffmpeg_path")
+            row = box_general.row(align=True)
+            row.operator(LOOM_OT_set_ffmpeg_path.bl_idname, icon="FILE_FOLDER", text="自动检测")
+            row.operator(LOOM_OT_download_ffmpeg.bl_idname, icon="URL", text="下载 FFmpeg")
             box_general.row()
 
         """ Globals """
@@ -3745,6 +3748,59 @@ class LOOM_OT_openURL(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class LOOM_OT_set_ffmpeg_path(bpy.types.Operator):
+    """自动检测脚本目录中的 FFmpeg 二进制文件并设置路径"""
+    bl_idname = "loom.set_ffmpeg_path"
+    bl_label = "自动检测 FFmpeg"
+    bl_options = {'INTERNAL'}
+
+    def execute(self, context):
+        prefs = context.preferences.addons[__name__].preferences
+        script_dir = bpy.utils.script_path_user()
+        
+        # 可能的 FFmpeg 文件名
+        ffmpeg_names = ['ffmpeg.exe', 'ffmpeg', 'ffmpeg.exe', 'ffmpeg.exe']
+        if platform.startswith('win32'):
+            ffmpeg_names = ['ffmpeg.exe', 'ffmpeg']
+        elif platform.startswith('darwin'):
+            ffmpeg_names = ['ffmpeg', 'ffmpeg.exe']
+        else:  # Linux
+            ffmpeg_names = ['ffmpeg', 'ffmpeg.exe']
+        
+        # 在脚本目录中查找 FFmpeg
+        for ffmpeg_name in ffmpeg_names:
+            ffmpeg_path = os.path.join(script_dir, ffmpeg_name)
+            if os.path.exists(ffmpeg_path):
+                prefs.ffmpeg_path = ffmpeg_path
+                self.report({'INFO'}, "已在脚本目录中找到 FFmpeg: {}".format(ffmpeg_path))
+                return {'FINISHED'}
+        
+        # 也在插件所在目录查找
+        addon_dir = os.path.dirname(os.path.realpath(__file__))
+        for ffmpeg_name in ffmpeg_names:
+            ffmpeg_path = os.path.join(addon_dir, ffmpeg_name)
+            if os.path.exists(ffmpeg_path):
+                prefs.ffmpeg_path = ffmpeg_path
+                self.report({'INFO'}, "已在插件目录中找到 FFmpeg: {}".format(ffmpeg_path))
+                return {'FINISHED'}
+        
+        self.report({'WARNING'}, "未在脚本目录或插件目录中找到 FFmpeg")
+        return {'CANCELLED'}
+
+
+class LOOM_OT_download_ffmpeg(bpy.types.Operator):
+    """打开 FFmpeg 下载页面"""
+    bl_idname = "loom.download_ffmpeg"
+    bl_label = "下载 FFmpeg"
+    bl_options = {'INTERNAL'}
+
+    def execute(self, context):
+        # 根据操作系统打开不同的下载页面
+        webbrowser.open_new("https://ffmpeg.org/download.html")
+        self.report({'INFO'}, "正在打开 FFmpeg 下载页面...")
+        return {'FINISHED'}
+
+
 # -------------------------------------------------------------------
 #    Rendering Operators
 # -------------------------------------------------------------------
@@ -6344,6 +6400,8 @@ classes = (
     LOOM_OT_utils_node_cleanup,
     LOOM_OT_open_preferences,
     LOOM_OT_openURL,
+    LOOM_OT_set_ffmpeg_path,
+    LOOM_OT_download_ffmpeg,
     LOOM_OT_render_terminal,
     LOOM_OT_render_image_sequence,
     LOOM_OT_render_flipbook,
