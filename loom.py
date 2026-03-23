@@ -40,8 +40,8 @@ bl_info = {
     "author": "Christian Brinkmann (p2or) / yancongya (汉化)",
     "version": (0, 9, 5),
     "blender": (3, 6, 0),
-    "doc_url": "https://github.com/p2or/blender-loom",
-    "tracker_url": "https://github.com/p2or/blender-loom/issues",
+    "doc_url": "https://github.com/yancongya/blender-loom",
+    "tracker_url": "https://github.com/yancongya/blender-loom/issues",
     "support": "COMMUNITY",
     "category": "渲染"
 }
