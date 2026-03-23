@@ -38,14 +38,14 @@ from sys import platform
 
 bl_info = {
     "name": "Loom",
-    "description": "Image sequence rendering, encoding and playback",
-    "author": "Christian Brinkmann (p2or)",
+    "description": "图像序列渲染、编码和播放",
+    "author": "Christian Brinkmann (p2or) / yancongya (汉化)",
     "version": (0, 9, 5),
     "blender": (3, 6, 0),
     "doc_url": "https://github.com/p2or/blender-loom",
     "tracker_url": "https://github.com/p2or/blender-loom/issues",
     "support": "COMMUNITY",
-    "category": "Render"
+    "category": "渲染"
 }
 
 
@@ -342,7 +342,7 @@ def user_globals(context):
 
 class LOOM_PG_globals(bpy.types.PropertyGroup):
     # name: bpy.props.StringProperty()
-    expr: bpy.props.StringProperty(name="Python Expression")
+    expr: bpy.props.StringProperty(name="Python 表达式")
 
 class LOOM_UL_globals(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
@@ -375,156 +375,156 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
     bl_idname = __name__
 
     terminal: bpy.props.EnumProperty(
-        name="Terminal",
+        name="终端",
         items=(
-            ("win-default", "Windows Default Terminal", "", 1),
-            ("osx-default", "OSX Default Terminal", "", 2),
-            ("x-terminal-emulator", "X Terminal Emulator", "", 3),
-            ("xfce4-terminal", "Xfce4 Terminal", "", 4),
+            ("win-default", "Windows 默认终端", "", 1),
+            ("osx-default", "OSX 默认终端", "", 2),
+            ("x-terminal-emulator", "X 终端模拟器", "", 3),
+            ("xfce4-terminal", "Xfce4 终端", "", 4),
             ("xterm", "xterm", "", 5)))
 
     xterm_flag: bpy.props.BoolProperty(
-        name="Use Xterm (Terminal Fallback)",
-        description="Serves as fallback for OSX and others",
+        name="使用 Xterm (终端回退)",
+        description="作为 OSX 和其他系统的回退选项",
         default=False)
-        
+
     bash_file: bpy.props.StringProperty(
-        name="Bash file",
-        description = "Filepath to temporary bash or bat file")
+        name="Bash 文件",
+        description="临时 bash 或 bat 文件路径")
 
     bash_flag: bpy.props.BoolProperty(
-        name="Force Bash File",
-        description="Force using bash file instead of individual arguments",
+        name="强制使用 Bash 文件",
+        description="强制使用 bash 文件而不是单独的参数",
         default=False)
 
     render_dialog_width: bpy.props.IntProperty(
-        name="Render Dialog Width",
-        description = "Width of Image Sequence Render Dialog",
+        name="渲染对话框宽度",
+        description="图像序列渲染对话框的宽度",
         subtype='PIXEL',
         default=450, min=400)
 
     encode_dialog_width: bpy.props.IntProperty(
-        name="Encoding/Rename Dialog Width",
-        description = "Width of Encoding and Rename Dialog",
+        name="编码/重命名对话框宽度",
+        description="编码和重命名对话框的宽度",
         subtype='PIXEL',
         default=650, min=400)
 
     project_dialog_width: bpy.props.IntProperty(
-        name="Project Dialog Width",
-        description = "Width of Project Dialog",
+        name="项目对话框宽度",
+        description="项目对话框的宽度",
         subtype='PIXEL',
         default=650, min=400)
 
     timeline_extensions: bpy.props.BoolProperty(
-        name="Timeline Extensions",
-        description="Do not display Loom operators in the Timeline",
+        name="时间轴扩展",
+        description="不在时间轴中显示 Loom 操作符",
         default=False)
 
     output_extensions: bpy.props.BoolProperty(
-        name="Output Panel Extensions",
-        description="Do not display all File Output nodes and the final Output Path in the Output Panel",
+        name="输出面板扩展",
+        description="不在输出面板中显示所有文件输出节点和最终输出路径",
         default=False)
 
     log_render: bpy.props.BoolProperty(
-        name="Logging (Required for Playback)",
-        description="If enabled render output properties will be saved",
+        name="日志记录 (播放所需)",
+        description="启用后将保存渲染输出属性",
         default=True)
 
     log_render_limit: bpy.props.IntProperty(
-        name="Log Limit",
+        name="日志限制",
         default=3)
 
     playblast_flag: bpy.props.BoolProperty(
-        name="Playblast (Experimental)",
-        description="Playback rendered sequences",
+        name="播放预览 (实验性)",
+        description="播放渲染的序列",
         default=False)
-    
+
     user_player: bpy.props.BoolProperty(
-        name="Default Animation Player",
-        description="Use default player (User Preferences > File Paths)",
+        name="默认动画播放器",
+        description="使用默认播放器 (用户偏好设置 > 文件路径)",
         default=False)
 
     ffmpeg_path: bpy.props.StringProperty(
-        name="FFmpeg Binary",
-        description="Path to ffmpeg",
+        name="FFmpeg 二进制文件",
+        description="ffmpeg 路径",
         maxlen=1024,
         subtype='FILE_PATH')
-    
+
     snapshot_directory: bpy.props.StringProperty(
-        name="Snapshot Directory",
-        description="Path of the Snapshot directory",
+        name="快照目录",
+        description="快照目录路径",
         maxlen=1024,
         default="//temp",
         subtype='DIR_PATH')
 
     default_codec: bpy.props.StringProperty(
-        name="User Codec",
-        description = "Default user codec")
+        name="用户编解码器",
+        description="默认用户编解码器")
 
     batch_dialog_width: bpy.props.IntProperty(
-        name="Batch Dialog Width",
-        description="Width of Batch Render Dialog",
+        name="批量对话框宽度",
+        description="批量渲染对话框的宽度",
         subtype='PIXEL',
         default=750, min=600, max=1800)
 
     batch_dialog_rows: bpy.props.IntProperty(
-        name="Number of Rows",
-        description="Number of Rows",
+        name="行数",
+        description="行数",
         min=7, max=40,
         default=9)
-    
+
     batch_paths_flag: bpy.props.BoolProperty(
-        name="Display File Paths",
-        description="Display File paths")
+        name="显示文件路径",
+        description="显示文件路径")
 
     batch_path_col_width: bpy.props.FloatProperty(
-        name="Path Column Width",
-        description="Width of path column in list",
+        name="路径列宽度",
+        description="列表中路径列的宽度",
         default=0.6, min=0.3, max=0.8)
 
     batch_name_col_width: bpy.props.FloatProperty(
-        name="Name Column Width",
-        description="Width of name column in list",
+        name="名称列宽度",
+        description="列表中名称列的宽度",
         default=0.45, min=0.3, max=0.8)
 
     render_background: bpy.props.BoolProperty(
-        name="Render in Background",
-        description="Do not activate the Console",
+        name="后台渲染",
+        description="不激活控制台",
         default=False)
 
     global_variable_coll: bpy.props.CollectionProperty(
-        name="Global Variables",
+        name="全局变量",
         type=LOOM_PG_globals)
-    
+
     global_variable_idx: bpy.props.IntProperty(
-        name="Index",
+        name="索引",
         default=0)
-    
+
     expression: bpy.props.StringProperty(
-        name="Expression",
-        description = "Test Expression",
+        name="表达式",
+        description="测试表达式",
         options={'SKIP_SAVE'})
-    
+
     project_directory_coll: bpy.props.CollectionProperty(
-        name="Project Folders",
+        name="项目文件夹",
         type=LOOM_PG_project_directories)
-    
+
     project_coll_idx: bpy.props.IntProperty(
-        name="Index",
+        name="索引",
         default=0)
 
     render_presets_path: bpy.props.StringProperty(
-        subtype = "FILE_PATH",
-        default = bpy.utils.user_resource(
+        subtype="FILE_PATH",
+        default=bpy.utils.user_resource(
             'SCRIPTS',
             path=os.path.join("presets", "loom", "render_presets")))
-    
+
     render_display_type: bpy.props.EnumProperty(
-        name="Render Display Type",
-        description="Location where rendered images will be displayed to",
-        items=[ ('NONE', "Keep User Interface", ""),
-                ('AREA', "Image Editor", ""),
-                ('WINDOW', "New Window", "")
+        name="渲染显示类型",
+        description="渲染图像显示的位置",
+        items=[('NONE', "保持用户界面", ""),
+                ('AREA', "图像编辑器", ""),
+                ('WINDOW', "新窗口", "")
               ],
         default='WINDOW'
         )
@@ -560,8 +560,8 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
         row.prop(self, "display_general",
             icon="TRIA_DOWN" if self.display_general else "TRIA_RIGHT",
             icon_only=True, emboss=False)
-        row.label(text="General")
-        
+        row.label(text="常规")
+
         if self.display_general:
             split = box_general.split(factor=split_width)
             col = split.column()
@@ -590,17 +590,17 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
         row.prop(self, "display_globals",
             icon="TRIA_DOWN" if self.display_globals else "TRIA_RIGHT",
             icon_only=True, emboss=False)
-        row.label(text="Globals (File Output)")
+        row.label(text="全局变量 (文件输出)")
 
         if self.display_globals:
             row = box_globals.row()
             row.template_list(
-                listtype_name = "LOOM_UL_globals", 
-                list_id = "", 
-                dataptr = self, 
-                propname = "global_variable_coll", 
-                active_dataptr = self, 
-                active_propname = "global_variable_idx", 
+                listtype_name = "LOOM_UL_globals",
+                list_id = "",
+                dataptr = self,
+                propname = "global_variable_coll",
+                active_dataptr = self,
+                active_propname = "global_variable_idx",
                 rows=6)
             col = row.column(align=True)
             col.operator(LOOM_OT_globals_ui.bl_idname, icon='ADD', text="").action = 'ADD'
@@ -612,38 +612,38 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
             col.separator()
             exp_box = box_globals.box()
             row = exp_box.row()
-            row.label(text='Expression Tester')
+            row.label(text='表达式测试器')
             row = exp_box.row()
             split = row.split(factor=0.2)
-            split.label(text="Expression:", icon='FILE_SCRIPT')
+            split.label(text="表达式:", icon='FILE_SCRIPT')
             split.prop(self, "expression", text="")
             if not self.expression or self.expression.isspace():
-                eval_info = "Nothing to evaluate"
+                eval_info = "无需计算"
             else:
                 eval_info = eval(self.expression) if isevaluable(self.expression) else "0"
             row = exp_box.row()
             split = row.split(factor=0.2)
-            split.label(text="Result:", icon='FILE_VOLUME')
+            split.label(text="结果:", icon='FILE_VOLUME')
             split.label(text="{}".format(eval_info))
             box_globals.row()
-            
+
         """ Project Directories """
         box_dirs = layout.box()
         row = box_dirs.row()
         row.prop(self, "display_directories",
             icon="TRIA_DOWN" if self.display_directories else "TRIA_RIGHT",
             icon_only=True, emboss=False)
-        row.label(text="Project Directories")
+        row.label(text="项目目录")
 
         if self.display_directories:
             row = box_dirs.row()
             row.template_list(
-                listtype_name = "LOOM_UL_directories", 
-                list_id = "", 
-                dataptr = self, 
-                propname = "project_directory_coll", 
-                active_dataptr = self, 
-                active_propname = "project_coll_idx", 
+                listtype_name = "LOOM_UL_directories",
+                list_id = "",
+                dataptr = self,
+                propname = "project_directory_coll",
+                active_dataptr = self,
+                active_propname = "project_coll_idx",
                 rows=6)
             col = row.column(align=True)
             col.operator(LOOM_OT_directories_ui.bl_idname, icon='ADD', text="").action = 'ADD'
@@ -656,18 +656,18 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
         row.prop(self, "display_advanced",
             icon="TRIA_DOWN" if self.display_advanced else "TRIA_RIGHT",
             icon_only=True, emboss=False)
-        row.label(text="Advanced Settings")
-        
+        row.label(text="高级设置")
+
         if self.display_advanced:
             split = box_advanced.split(factor=split_width)
 
             lft = split.column() # Left
             fsh = lft.column(align=True)
-            txt = "Force generating .bat file" if platform.startswith('win32') else "Force generating .sh file"
+            txt = "强制生成 .bat 文件" if platform.startswith('win32') else "强制生成 .sh 文件"
             lft.prop(self, "bash_flag", text=txt, toggle=True, icon=self.draw_state(self.bash_flag))
-    
+
             rsh = lft.row(align=True)
-            txt = "Delete temporary .bat Files" if platform.startswith('win32') else "Delete temporary .sh files"
+            txt = "删除临时 .bat 文件" if platform.startswith('win32') else "删除临时 .sh 文件"
             rsh.operator(LOOM_OT_delete_bash_files.bl_idname, text=txt, icon="FILE_SCRIPT")
             script_folder = bpy.utils.script_path_user()
             rsh.operator(LOOM_OT_open_folder.bl_idname, icon="DISK_DRIVE", text="").folder_path = script_folder
@@ -680,7 +680,7 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
             xtm = rgt.row(align=True)
             xtm.prop(self, "xterm_flag", toggle=True, icon=self.draw_state(self.xterm_flag))
             wp = xtm.operator(LOOM_OT_openURL.bl_idname, icon='HELP', text="")
-            wp.description = "Open the Wikipedia page about Xterm"
+            wp.description = "打开 Xterm 的 Wikipedia 页面"
             wp.url = "https://en.wikipedia.org/wiki/Xterm"
 
             """ Linux/OSX specific properties """
@@ -691,18 +691,18 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
             if platform.startswith('darwin'):
                 fsh.enabled = False
                 rbg.enabled = True
-            
+
             box_advanced.row()
             box_advanced.row().prop(self, "snapshot_directory")
             box_advanced.row()
-        
+
         """ Hotkeys """
         box_hotkeys = layout.box()
         row = box_hotkeys.row()
         row.prop(self, "display_hotkeys",
             icon="TRIA_DOWN" if self.display_hotkeys else "TRIA_RIGHT",
             icon_only=True, emboss=False)
-        row.label(text="Hotkeys")
+        row.label(text="快捷键")
 
         if self.display_hotkeys:
             split = box_hotkeys.split()
@@ -728,7 +728,7 @@ class LOOM_AP_preferences(bpy.types.AddonPreferences):
 class LOOM_OT_preferences_reset(bpy.types.Operator):
     """Reset Add-on Preferences"""
     bl_idname = "loom.reset_preferences"
-    bl_label = "Reset Loom Preferences"
+    bl_label = "重置 Loom 偏好设置"
     bl_options = {"INTERNAL"}
 
     def execute(self, context):
@@ -763,7 +763,7 @@ class LOOM_OT_preferences_reset(bpy.types.Operator):
 class LOOM_OT_globals_ui(bpy.types.Operator):
     """Move global variables up and down, add and remove"""
     bl_idname = "loom.globals_action"
-    bl_label = "Global Actions"
+    bl_label = "全局操作"
     bl_options = {'REGISTER', 'INTERNAL'}
 
     action: bpy.props.EnumProperty(
@@ -798,7 +798,7 @@ class LOOM_OT_globals_ui(bpy.types.Operator):
 class LOOM_OT_directories_ui(bpy.types.Operator):
     """Move items up and down, add and remove"""
     bl_idname = "loom.directory_action"
-    bl_label = "Directory Actions"
+    bl_label = "目录操作"
     bl_options = {'REGISTER', 'INTERNAL'}
 
     action: bpy.props.EnumProperty(
@@ -857,7 +857,7 @@ class LOOM_PG_batch_render(bpy.types.PropertyGroup):
     frame_start: bpy.props.IntProperty()
     frame_end: bpy.props.IntProperty()
     scene: bpy.props.StringProperty()
-    frames: bpy.props.StringProperty(name="Frames")
+    frames: bpy.props.StringProperty(name="帧")
     encode_flag: bpy.props.BoolProperty(default=False)
     input_filter: bpy.props.BoolProperty(default=False)
 
@@ -865,41 +865,41 @@ class LOOM_PG_batch_render(bpy.types.PropertyGroup):
 class LOOM_PG_preset_flags(bpy.types.PropertyGroup):
 
     include_engine_settings: bpy.props.BoolProperty(
-        name="Engine Settings", # Currently not exposed to the user
-        description="Store 'Render Engine' settings",
+        name="引擎设置", # Currently not exposed to the user
+        description="存储'渲染引擎'设置",
         default=True)
 
     include_resolution: bpy.props.BoolProperty(
-        name="Resolution",
-        description="Store current 'Format' settings")
+        name="分辨率",
+        description="存储当前'格式'设置")
 
     include_output_path: bpy.props.BoolProperty(
-        name="Output Path",
-        description="Store current 'Output Path'")
-    
+        name="输出路径",
+        description="存储当前'输出路径'")
+
     include_file_format: bpy.props.BoolProperty(
-        name="File Format",
-        description="Store current 'File Format' settings")
-    
+        name="文件格式",
+        description="存储当前'文件格式'设置")
+
     include_scene_settings: bpy.props.BoolProperty(
-        name="Scene Settings", 
-        description="Store current 'Scene' settings")
+        name="场景设置",
+        description="存储当前'场景'设置")
 
     include_passes: bpy.props.BoolProperty(
-        name="Passes",
-        description="Store current 'Passes' settings")
+        name="通道",
+        description="存储当前'通道'设置")
 
     include_color_management: bpy.props.BoolProperty(
-        name="Color Management",
-        description="Store current 'Color Management' settings")
-    
+        name="色彩管理",
+        description="存储当前'色彩管理'设置")
+
     include_metadata: bpy.props.BoolProperty(
-        name="Metadata",
-        description="Store current 'Metadata' settings")
+        name="元数据",
+        description="存储当前'元数据'设置")
 
     include_post_processing: bpy.props.BoolProperty(
-        name="Post Processing", # Currently not exposed to the user
-        description="Store current 'Post Processing' settings",
+        name="后期处理", # Currently not exposed to the user
+        description="存储当前'后期处理'设置",
         default=True)
 
 
@@ -915,135 +915,135 @@ class LOOM_PG_paths(bpy.types.PropertyGroup):
     repl_base: bpy.props.StringProperty()
     orig_filename: bpy.props.StringProperty()
     repl_filename: bpy.props.StringProperty()
-    slts: bpy.props.CollectionProperty(name="Slot Collection", type=LOOM_PG_slots)
+    slts: bpy.props.CollectionProperty(name="槽集合", type=LOOM_PG_slots)
 
 
 class LOOM_PG_scene_settings(bpy.types.PropertyGroup):
 
     frame_input: bpy.props.StringProperty(
-        name="Frames to render",
-        description="Specify a range or single frames to render")
+        name="要渲染的帧",
+        description="指定要渲染的帧范围或单帧")
 
     filter_input: bpy.props.BoolProperty(
-        name="Filter individual elements",
-        description="Isolate numbers after exclude chars (^, !)",
+        name="过滤单独元素",
+        description="隔离排除字符 (^, !) 后的数字",
         default=False)
 
     command_line: bpy.props.BoolProperty(
-        name="Render using Command Line",
-        description="Send frames to command line (background process)",
+        name="使用命令行渲染",
+        description="将帧发送到命令行（后台进程）",
         default=False)
 
     is_rendering: bpy.props.BoolProperty(
-        name="Render Flag",
-        description="Determine whether Loom is rendering",
+        name="渲染标志",
+        description="确定 Loom 是否正在渲染",
         default=False)
 
     override_render_settings: bpy.props.BoolProperty(
-        name="Override render settings",
-        description="Force to render with specified settings",
+        name="覆盖渲染设置",
+        description="强制使用指定设置渲染",
         default=False)
 
     threads: bpy.props.IntProperty(
-        name="CPU Threads",
-        description="Number of CPU threads to use simultaneously while rendering",
+        name="CPU 线程数",
+        description="渲染时同时使用的 CPU 线程数",
         min=1)
-    
+
     sequence_encode: bpy.props.StringProperty(
-        name="Image Sequence",
-        description="Image sequence to encode",
+        name="图像序列",
+        description="要编码的图像序列",
         maxlen=1024)
 
     movie_path: bpy.props.StringProperty(
-        name="Movie",
-        description="Movie file output path",
+        name="视频",
+        description="视频文件输出路径",
         maxlen=1024)
 
     sequence_rename: bpy.props.StringProperty(
-        name="Sequence Name",
-        description="New sequence name for renaming",
+        name="序列名称",
+        description="用于重命名的新序列名称",
         maxlen=1024)
 
     lost_frames: bpy.props.StringProperty(
-        name="Missing Frames",
-        description="Missing Frames of the given sequence",
+        name="缺失帧",
+        description="给定序列的缺失帧",
         default="",
         options={'SKIP_SAVE'})
 
     render_collection: bpy.props.CollectionProperty(
-        name="Render Collection",
+        name="渲染集合",
         type=LOOM_PG_render)
 
     batch_scan_folder: bpy.props.StringProperty(
-        name="Folder",
-        description="Folder to search for .blend files",
+        name="文件夹",
+        description="搜索 .blend 文件的文件夹",
         maxlen=1024)
 
     batch_render_idx: bpy.props.IntProperty(
-        name="Collection Index",
-        description="Collection Index")
-       
+        name="集合索引",
+        description="集合索引")
+
     batch_render_coll: bpy.props.CollectionProperty(
-        name="Batch Render Collection",
+        name="批量渲染集合",
         type=LOOM_PG_batch_render)
 
     output_render_version: bpy.props.IntProperty(
-        name = "Render Version",
-        description="Change the given version number within the output path",
-        default=1, 
+        name="渲染版本",
+        description="更改输出路径中的版本号",
+        default=1,
         min=1,
         update=render_version)
 
     output_sync_comp: bpy.props.BoolProperty(
-        name="Sync Compositor",
-        description="Keep version number of all file output nodes in sync",
+        name="同步合成器",
+        description="保持所有文件输出节点的版本号同步",
         default=True)
 
     comp_image_settings: bpy.props.BoolProperty(
-        name="Display Image Settings",
-        description="Display image settings of each file output node",
+        name="显示图像设置",
+        description="显示每个文件输出节点的图像设置",
         default=False)
 
     project_directory: bpy.props.StringProperty(
-        name="Project Directory",
-        description="Stores the path to the project directory",
+        name="项目目录",
+        description="存储项目目录的路径",
         maxlen=1024)
 
     path_collection: bpy.props.CollectionProperty(
-        name="Globals Path Collection",
+        name="全局路径集合",
         type=LOOM_PG_paths)
 
     scene_selection: bpy.props.BoolProperty(
-        name="Limit by Object Selection",
-        description="Only add keyframes assigned to the object(s) in selection",
+        name="限制为对象选择",
+        description="仅添加分配给选中对象的關鍵帧",
         default=False)
-    
+
     ignore_scene_range: bpy.props.BoolProperty(
-        name="Ignore Scene Range",
-        description="Do not consider the frame range of the scene",
+        name="忽略场景范围",
+        description="不考虑场景的帧范围",
         default=False)
 
     all_markers_flag: bpy.props.BoolProperty(
-        name="All Markers",
-        description="Add all markers to the list",
+        name="所有标记",
+        description="将所有标记添加到列表",
         default=False)
-    
+
     render_preset_flags: bpy.props.PointerProperty(
         type=LOOM_PG_preset_flags)
 
     custom_render_presets: bpy.props.EnumProperty(
-        name="Render Preset",
-        description="Select a custom render preset",
+        name="渲染预设",
+        description="选择自定义渲染预设",
         items=render_preset_callback,
         options={'SKIP_SAVE'})
-    
+
     meta_note: bpy.props.StringProperty(
-        name="Note",
-        description="Stores the value of the stamp note")
+        name="注释",
+        description="存储印章注释的值")
 
     flipbook_flag: bpy.props.BoolProperty(
-        name="Render Flipbook",
-        description="Render the contents of the viewport",
+        name="渲染翻页动画",
+        description="渲染视口的内容",
         default=False,
         options={'SKIP_SAVE'})
 
@@ -1054,20 +1054,20 @@ class LOOM_PG_scene_settings(bpy.types.PropertyGroup):
 class LOOM_OT_render_threads(bpy.types.Operator):
     """Set all available threads"""
     bl_idname = "loom.available_threads"
-    bl_label = "Reset Threads"
+    bl_label = "重置线程数"
     bl_options = {'INTERNAL'}
 
     def execute(self, context):
         from multiprocessing import cpu_count
         context.scene.loom.threads = cpu_count()
-        self.report({'INFO'}, "Set to core maximum")
+        self.report({'INFO'}, "设置为最大核心数")
         return {'FINISHED'}
 
 
 class LOOM_OT_render_full_scale(bpy.types.Operator):
     """Set Resolution Percentage Scale to 100%"""
     bl_idname = "loom.full_scale"
-    bl_label = "Full Scale Image"
+    bl_label = "全分辨率图像"
     bl_options = {'INTERNAL'}
 
     def execute(self, context): #context.area.tag_redraw()
@@ -1078,12 +1078,12 @@ class LOOM_OT_render_full_scale(bpy.types.Operator):
 class LOOM_OT_guess_frames(bpy.types.Operator):
     """Either set the Range of the Timeline or find all missing Frames"""
     bl_idname = "loom.guess_frames"
-    bl_label = "Set Timeline Range or detect missing Frames"
+    bl_label = "设置时间轴范围或检测缺失帧"
     bl_options = {'INTERNAL'}
 
     detect_missing_frames: bpy.props.BoolProperty(
-            name="Missing Frames",
-            description="Detect all missing Frames based based on the Output Path",
+            name="缺失帧",
+            description="基于输出路径检测所有缺失帧",
             default=True,
             options={'SKIP_SAVE'})
 
@@ -1182,14 +1182,14 @@ class LOOM_OT_guess_frames(bpy.types.Operator):
 class LOOM_OT_verify_frames(bpy.types.Operator):
     """Report all Frames to render & the current Render Location"""
     bl_idname = "loom.verify_frames"
-    bl_label = "Verify Input Frames"
+    bl_label = "验证输入帧"
     bl_options = {'INTERNAL'}
 
     frame_input = None
 
     individual_frames: bpy.props.BoolProperty(
-            name="Individual Frames",
-            description="List all Frames individually",
+            name="单独帧",
+            description="单独列出所有帧",
             default=False,
             options={'SKIP_SAVE'})
 
@@ -1226,12 +1226,12 @@ class LOOM_OT_verify_frames(bpy.types.Operator):
 class LOOM_OT_render_dialog(bpy.types.Operator):
     """Render Image Sequence Dialog"""
     bl_idname = "loom.render_dialog"
-    bl_label = "Render Image Sequence"
+    bl_label = "渲染图像序列"
     bl_options = {'REGISTER'}
 
     show_errors: bpy.props.BoolProperty(
-        name="Show Errors",
-        description="Displays Errors and Warnings",
+        name="显示错误",
+        description="显示错误和警告",
         default=False,
         options={'SKIP_SAVE'})
 
@@ -1368,7 +1368,7 @@ class LOOM_OT_render_dialog(bpy.types.Operator):
 
         split = layout.split(factor=split_factor)
         col = split.column(align=True)
-        col.label(text="Frames:")
+        col.label(text="帧：")
         col = split.column(align=True)
         sub = col.row(align=True) #GHOST_ENABLED
         # guess_icon = 'AUTO' if len(lum.render_collection) else 'PREVIEW_RANGE'
@@ -1381,20 +1381,20 @@ class LOOM_OT_render_dialog(bpy.types.Operator):
         split = layout.split(factor=split_factor)
         col = split.column(align=True)
         col.active = not lum.command_line
-        col.label(text="Display:")
+        col.label(text="显示：")
         col = split.column(align=True)
         sub = col.row(align=True)
         sub.active = not lum.command_line
         sub.prop(prefs, "render_display_type", text="") #context.preferences.view
         sub.prop(scn.render, "use_lock_interface", icon_only=True)
-            
-        row = layout.row(align=True)    
-        row.prop(lum, "command_line", text="Render using Command Line")
+
+        row = layout.row(align=True)
+        row.prop(lum, "command_line", text="使用命令行渲染")
         if scn.render.resolution_percentage < 100:
             row.prop(self, "show_errors", text="", icon='TEXT' if self.show_errors else "REC", emboss=False)
         else:
             hlp = row.operator(LOOM_OT_openURL.bl_idname, icon='HELP', text="", emboss=False)
-            hlp.description = "Open Loom Documentation on Github"
+            hlp.description = "在 Github 上打开 Loom 文档"
             hlp.url = bl_info["doc_url"]
 
         if lum.command_line:
@@ -1425,7 +1425,7 @@ class LOOM_OT_render_dialog(bpy.types.Operator):
 class LOOM_OT_render_input_dialog(bpy.types.Operator):
     """Pass custom Frame Numbers and Ranges to the Render Dialog"""
     bl_idname = "loom.render_input_dialog"
-    bl_label = "Render Frames"
+    bl_label = "渲染帧"
     bl_options = {'INTERNAL'}
 
     frame_input: bpy.props.StringProperty()
@@ -1452,7 +1452,7 @@ class LOOM_OT_render_input_dialog(bpy.types.Operator):
 class LOOM_OT_selected_keys_dialog(bpy.types.Operator):
     """Render selected Keyframes in the Timeline, Graph Editor or Dopesheet"""
     bl_idname = "loom.render_selected_keys"
-    bl_label = "Render Selected Keyframes"
+    bl_label = "渲染选中关键帧"
     bl_options = {'REGISTER'}
 
     limit_to_object_selection: bpy.props.BoolProperty(default=False, options={'SKIP_SAVE'})
@@ -1626,7 +1626,7 @@ class LOOM_OT_selected_keys_dialog(bpy.types.Operator):
 class LOOM_OT_selected_makers_dialog(bpy.types.Operator):
     """Render selected Markers in the Timeline or Dopesheet"""
     bl_idname = "loom.render_selected_markers"
-    bl_label = "Render Selected Markers"
+    bl_label = "渲染选中标记"
     bl_options = {'REGISTER'}
 
     all_markers: bpy.props.BoolProperty(options={'SKIP_SAVE'})
@@ -1701,13 +1701,13 @@ def colorspace_callback(scene, context):
 
 
 class LOOM_MT_display_settings(bpy.types.Menu):
-    bl_label = "Loom Batch Display Settings"
+    bl_label = "Loom 批量显示设置"
     bl_idname = "LOOM_MT_display_settings"
 
     def draw(self, context):
         prefs = context.preferences.addons[__name__].preferences
         layout = self.layout
-        layout.label(text="Display Settings", icon="COLOR")
+        layout.label(text="显示设置", icon="COLOR")
         layout.separator()
         layout.prop(prefs, "batch_paths_flag")
         layout.prop(prefs, "batch_dialog_rows")
@@ -1761,40 +1761,40 @@ class LOOM_UL_batch_list(bpy.types.UIList):
 class LOOM_OT_batch_dialog(bpy.types.Operator):
     """Loom Batch Render Dialog"""
     bl_idname = "loom.batch_render_dialog"
-    bl_label = "Loom Batch"
+    bl_label = "Loom 批量"
     bl_options = {'REGISTER'}
    
     colorspace: bpy.props.EnumProperty(
-        name="Colorspace",
-        description="colorspace",
+        name="色彩空间",
+        description="色彩空间",
         items=colorspace_callback)
 
     codec: bpy.props.EnumProperty(
-        name="Codec",
-        description="Codec",
+        name="编解码器",
+        description="编解码器",
         items=codec_callback)
-    
+
     fps: bpy.props.IntProperty(
-        name="Frame Rate",
-        description="Frame Rate",
+        name="帧率",
+        description="帧率",
         default=25, min=1)
 
     terminal: bpy.props.BoolProperty(
-        name="Terminal Instance",
-        description="Render in new Terminal Instance",
+        name="终端实例",
+        description="在新终端实例中渲染",
         default=True)
 
     override_render_settings: bpy.props.BoolProperty(
-        name="Override Render Settings",
+        name="覆盖渲染设置",
         default=False)
 
     render_preset: bpy.props.StringProperty(
-        name="Render Preset",
-        description="Pass a custom Preset.py")
+        name="渲染预设",
+        description="传递自定义预设.py")
 
     shutdown: bpy.props.BoolProperty(
-        name="Shutdown",
-        description="Shutdown when done",
+        name="关机",
+        description="完成后关机",
         default=False)
 
     def determine_type(self, val): #val = ast.literal_eval(s)
@@ -2058,47 +2058,47 @@ class LOOM_OT_batch_dialog(bpy.types.Operator):
 class LOOM_OT_batch_snapshot(bpy.types.Operator):
     """Create a Snapshot from the current Blend File"""
     bl_idname = "loom.batch_snapshot"
-    bl_label = "Snapshot"
+    bl_label = "快照"
     bl_options = {'INTERNAL'}
     bl_property = "file_name"
     
     snapshot_folder: bpy.props.StringProperty(
-        name="Snapshot Folder",
-        description="Folder to copy the snapshot to",
+        name="快照文件夹",
+        description="复制快照到的文件夹",
         default="//tmp",
         subtype='DIR_PATH')
-        
+
     file_name: bpy.props.StringProperty(
-        name="Filename",
-        description="The filename used for the copy",
+        name="文件名",
+        description="用于复制的文件名",
         default="",
         options={'SKIP_SAVE'})
-    
+
     suffix: bpy.props.EnumProperty(
-        name="Filename",
-        description="Apply or Restore Paths",
+        name="文件名",
+        description="应用或恢复路径",
         default = 'DATE',
         items=(
-            ('DATE', "Date (no Suffix)", ""),
-            ('NUMBSUFF', "Number Suffix", ""),
-            ('DATESUFF', "Date Suffix", "")))
+            ('DATE', "日期（无后缀）", ""),
+            ('NUMBSUFF', "数字后缀", ""),
+            ('DATESUFF', "日期后缀", "")))
 
     overwrite: bpy.props.BoolProperty(
-        name="Overwrite File",
-        description="Overwrite existing files",
+        name="覆盖文件",
+        description="覆盖现有文件",
         default=False)
-    
+
     convert_paths: bpy.props.BoolProperty(
-        name="Convert Output Paths",
-        description="Convert all output paths to absolute paths",
+        name="转换输出路径",
+        description="将所有输出路径转换为绝对路径",
         default=True)
-    
+
     apply_globals: bpy.props.BoolProperty(
-        name="Apply Globals",
+        name="应用全局变量",
         default=False)
 
     globals_flag: bpy.props.BoolProperty(
-        name="Globals Flag",
+        name="全局变量标志",
         options={'HIDDEN'},
         default=False)
 
@@ -2243,7 +2243,7 @@ class LOOM_OT_batch_snapshot(bpy.types.Operator):
 class LOOM_OT_batch_selected_blends(bpy.types.Operator, ImportHelper):
     """Select Blend Files via File Browser"""
     bl_idname = "loom.batch_select_blends"
-    bl_label = "Select Blend Files"
+    bl_label = "选择 Blend 文件"
     bl_options = {'INTERNAL'}
 
     filename_ext = ".blend"
@@ -2314,7 +2314,7 @@ class LOOM_OT_batch_selected_blends(bpy.types.Operator, ImportHelper):
 class LOOM_OT_scan_blends(bpy.types.Operator, ImportHelper):
     """Scan directory for blend files and add to list"""
     bl_idname = "loom.batch_scandir_blends"
-    bl_label = "Scan Directory for Blend Files"
+    bl_label = "扫描目录中的 Blend 文件"
     bl_options = {'INTERNAL'}
 
     # ImportHelper mixin class uses this
@@ -2326,7 +2326,7 @@ class LOOM_OT_scan_blends(bpy.types.Operator, ImportHelper):
             maxlen=255)
 
     directory: bpy.props.StringProperty(subtype='DIR_PATH')
-    sub_folders: bpy.props.BoolProperty(default=True, name="Scan Subfolders")
+    sub_folders: bpy.props.BoolProperty(default=True, name="扫描子文件夹")
     cursor_pos = [0,0]
 
     def blend_files(self, base_dir, recursive):
@@ -2405,7 +2405,7 @@ class LOOM_OT_scan_blends(bpy.types.Operator, ImportHelper):
 class LOOM_OT_batch_list_actions(bpy.types.Operator):
     """Loom Batch Dialog Actions"""
     bl_idname = "loom.batch_dialog_action"
-    bl_label = "Loom Batch Dialog Action"
+    bl_label = "Loom 批量对话框操作"
     bl_options = {'INTERNAL'}
     
     action: bpy.props.EnumProperty(
@@ -2451,41 +2451,41 @@ class LOOM_OT_batch_list_actions(bpy.types.Operator):
 class LOOM_OT_batch_clear_list(bpy.types.Operator):
     """Clear all items of the Render Collection"""
     bl_idname = "loom.batch_clear_list"
-    bl_label = "Delete all items of the list?"
+    bl_label = "删除列表中的所有项目？"
     bl_options = {'INTERNAL'}
-    
+
     @classmethod
     def poll(cls, context):
         return bool(context.scene.loom.batch_render_coll)
-    
+
     def execute(self, context):
         context.scene.loom.batch_render_coll.clear()
-        self.report({'INFO'}, "All items removed")
+        self.report({'INFO'}, "所有项目已移除")
         return {"FINISHED"}
-    
+
     def invoke(self, context, event):
         return context.window_manager.invoke_confirm(self, event)
-    
+
 
 class LOOM_OT_batch_dialog_reset(bpy.types.Operator):
     """Reset Batch Dialog Display Settings"""
     bl_idname = "loom.batch_dialog_reset_display"
-    bl_label = "Reset Display Settings"
+    bl_label = "重置显示设置"
     bl_options = {'INTERNAL'}
-    
+
     def execute(self, context):
         prefs = context.preferences.addons[__name__].preferences
         prefs.property_unset("batch_dialog_rows")
         prefs.property_unset("batch_paths_flag")
         prefs.property_unset("batch_path_col_width")
-        prefs.property_unset("batch_name_col_width")       
+        prefs.property_unset("batch_name_col_width")
         return {'FINISHED'}
 
 
 class LOOM_OT_batch_remove_doubles(bpy.types.Operator):
     """Remove Duplicates in List based on the filename"""
     bl_idname = "loom.batch_remove_doubles"
-    bl_label = "Remove All Duplicates?"
+    bl_label = "移除所有重复项？"
     bl_options = {'INTERNAL'}
     
     doubles = []
@@ -2531,7 +2531,7 @@ class LOOM_OT_batch_remove_doubles(bpy.types.Operator):
 class LOOM_OT_batch_active_item(bpy.types.Operator):
     """Print active Item"""
     bl_idname = "loom.batch_active_item"
-    bl_label = "Print Active Item to Console"
+    bl_label = "打印活动项目到控制台"
     bl_options = {'INTERNAL'}
 
     def execute(self, context):
@@ -2539,16 +2539,16 @@ class LOOM_OT_batch_active_item(bpy.types.Operator):
         try:
             print (lum.batch_render_coll[lum.batch_render_idx].name)
         except IndexError:
-            print ("No active item")
+            print ("无活动项目")
         return{'FINISHED'}
-    
+
 
 class LOOM_OT_batch_default_range(bpy.types.Operator):
     """Revert to default frame range"""
     bl_idname = "loom.batch_default_frames"
-    bl_label = "Revert to default frame range"
+    bl_label = "恢复默认帧范围"
     bl_options = {'INTERNAL'}
-    
+
     item_id: bpy.props.IntProperty()
 
     def execute(self, context):
@@ -2557,14 +2557,14 @@ class LOOM_OT_batch_default_range(bpy.types.Operator):
             default_range = "{}-{}".format(item.frame_start, item.frame_end)
             item.frames = default_range
         except IndexError:
-            self.report({'INFO'}, "No active item")
+            self.report({'INFO'}, "无活动项目")
         return{'FINISHED'}
 
 
 class LOOM_OT_batch_verify_input(bpy.types.Operator):
     """Verify Input Frame Range"""
     bl_idname = "loom.batch_verify_input"
-    bl_label = "Verify Input Frame Range"
+    bl_label = "验证输入帧范围"
     bl_options = {'INTERNAL'}
     
     item_id: bpy.props.IntProperty()
@@ -2595,48 +2595,48 @@ class LOOM_OT_batch_verify_input(bpy.types.Operator):
 class LOOM_OT_encode_dialog(bpy.types.Operator):
     """Encode Image Sequence to ProRes or DNxHD"""
     bl_idname = "loom.encode_dialog"
-    bl_label = "Encode Image Sequence"
+    bl_label = "编码图像序列"
     bl_options = {'REGISTER'}
 
     sequence: bpy.props.StringProperty(
-        name="Path to sequence",
-        description="Path to sequence",
+        name="序列路径",
+        description="序列路径",
         maxlen=1024,
         subtype='FILE_PATH')
-    
+
     movie: bpy.props.StringProperty(
-        name="Path to movie",
-        description="Path to movie",
+        name="视频路径",
+        description="视频路径",
         maxlen=1024,
         subtype='FILE_PATH')
 
     fps: bpy.props.IntProperty(
-        name="Frame Rate",
-        description="Frame Rate",
+        name="帧率",
+        description="帧率",
         default=25, min=1)
 
     missing_frames_bool: bpy.props.BoolProperty(
-        name="Missing Frames",
-        description="Missing Frames")
+        name="缺失帧",
+        description="缺失帧")
 
     codec: bpy.props.EnumProperty(
-        name="Codec",
-        description="Codec",
+        name="编解码器",
+        description="编解码器",
         items=codec_callback)
 
     colorspace: bpy.props.EnumProperty(
-        name="Colorspace",
-        description="colorspace",
+        name="色彩空间",
+        description="色彩空间",
         items=colorspace_callback)
-    
+
     terminal_instance: bpy.props.BoolProperty(
-        name="New Terminal Instance",
-        description="Opens Blender in a new Terminal Window",
+        name="新终端实例",
+        description="在新终端窗口中打开 Blender",
         default=True)
 
     pause: bpy.props.BoolProperty(
-        name="Confirm when done",
-        description="Confirm when done",
+        name="完成后确认",
+        description="完成后确认",
         default=True)
 
     # https://avpres.net/FFmpeg/sq_ProRes.html, https://trac.ffmpeg.org/wiki/Encode/VFX
@@ -2881,13 +2881,13 @@ class LOOM_OT_encode_dialog(bpy.types.Operator):
         split_width = .2
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Sequence:")
+        col.label(text="序列：")
         col = split.column(align=True)
-        sub = col.row(align=True)          
+        sub = col.row(align=True)
         sub.prop(lum, "sequence_encode", text="")
         if lum.sequence_encode:
             sub.operator(LOOM_OT_encode_verify_image_sequence.bl_idname, icon='GHOST_ENABLED', text="")
-            sub.operator(LOOM_OT_open_folder.bl_idname, 
+            sub.operator(LOOM_OT_open_folder.bl_idname,
                 icon="DISK_DRIVE", text="").folder_path = os.path.dirname(lum.sequence_encode)
         else:
             sub.operator(LOOM_OT_encode_auto_paths.bl_idname, text="", icon='AUTO') #GHOST_ENABLED, SEQUENCE
@@ -2896,30 +2896,30 @@ class LOOM_OT_encode_dialog(bpy.types.Operator):
 
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Colorspace:")
+        col.label(text="色彩空间：")
         col = split.column(align=True)
         col.prop(self, "colorspace", text="")
 
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Frame Rate:")
+        col.label(text="帧率：")
         col = split.column(align=True)
         col.prop(self, "fps", text="")
 
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Codec:")
+        col.label(text="编解码器：")
         col = split.column(align=True)
         col.prop(self, "codec", text="")
 
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Movie File:")
+        col.label(text="视频文件：")
         col = split.column(align=True)
         sub = col.row(align=True)
         sub.prop(lum, "movie_path", text="")
         if lum.movie_path:
-            sub.operator(LOOM_OT_open_folder.bl_idname, 
+            sub.operator(LOOM_OT_open_folder.bl_idname,
                 icon="DISK_DRIVE", text="").folder_path = os.path.dirname(lum.movie_path)
         sub.operator(LOOM_OT_encode_select_movie.bl_idname, text="", icon='FILE_TICK')
         
@@ -2940,36 +2940,36 @@ class LOOM_OT_encode_dialog(bpy.types.Operator):
 class LOOM_OT_rename_dialog(bpy.types.Operator):
     """Rename Image or File Sequence"""
     bl_idname = "loom.rename_file_sequence"
-    bl_label = "Rename File Sequence"
-    bl_description = "Rename File or Image Sequence"
+    bl_label = "重命名文件序列"
+    bl_description = "重命名文件或图像序列"
     bl_options = {'REGISTER'}
     bl_property = "new_name"
 
     sequence: bpy.props.StringProperty(
-        name="Path to sequence",
-        description="Path to sequence",
+        name="序列路径",
+        description="序列路径",
         maxlen=1024,
         subtype='FILE_PATH')
-    
+
     new_name: bpy.props.StringProperty(
-        name="Path to sequence",
-        description="Path to sequence",
+        name="序列路径",
+        description="序列路径",
         maxlen=1024)
-    
+
     keep_original_numbers: bpy.props.BoolProperty(
-        name="Keep Original Numbers",
-        description="Keep the Numbers of the Original File Sequence",
+        name="保留原始编号",
+        description="保留原始文件序列的编号",
         default=False)
 
     start: bpy.props.IntProperty(
-        name="Start at",
-        description="Start at",
+        name="起始于",
+        description="起始于",
         default=1,
         min=0)
-        
+
     open_file_browser: bpy.props.BoolProperty(
-        name="Open File Browser",
-        description="Open File Browser",
+        name="打开文件浏览器",
+        description="打开文件浏览器",
         default=True)
     
     def missing_frames(self, frames):
@@ -3111,13 +3111,13 @@ class LOOM_OT_rename_dialog(bpy.types.Operator):
         split_width = .2
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="Sequence:")
+        col.label(text="序列：")
         col = split.column(align=True)
-        sub = col.row(align=True)          
+        sub = col.row(align=True)
         sub.prop(lum, "sequence_encode", text="")
         if lum.sequence_encode:
             sub.operator(LOOM_OT_encode_verify_image_sequence.bl_idname, icon='GHOST_ENABLED', text="")
-            sub.operator(LOOM_OT_open_folder.bl_idname, 
+            sub.operator(LOOM_OT_open_folder.bl_idname,
                 icon="DISK_DRIVE", text="").folder_path = os.path.dirname(lum.sequence_encode)
         else:
             sub.operator(LOOM_OT_encode_auto_paths.bl_idname, text="", icon='AUTO') #GHOST_ENABLED, SEQUENCE
@@ -3127,7 +3127,7 @@ class LOOM_OT_rename_dialog(bpy.types.Operator):
 
         split = layout.split(factor=split_width)
         col = split.column(align=True)
-        col.label(text="New Sequence Name:")
+        col.label(text="新序列名称：")
         col = split.column(align=True)
         split = col.split(factor=0.85)
         split.prop(self, "new_name", text="")
@@ -3144,7 +3144,7 @@ class LOOM_OT_rename_dialog(bpy.types.Operator):
 class LOOM_OT_load_image_sequence(bpy.types.Operator, ImportHelper):
     """Select File of Image Sequence"""
     bl_idname = "loom.load_sequence"
-    bl_label = "Select File of Image Sequence"
+    bl_label = "选择图像序列文件"
     bl_options = {'INTERNAL'}
     
     cursor_pos = [0,0]
@@ -3162,14 +3162,14 @@ class LOOM_OT_load_image_sequence(bpy.types.Operator, ImportHelper):
         options={'HIDDEN'})
 
     verify_sequence: bpy.props.BoolProperty(
-            name="Verify Image Sequence",
-            description="Detects missing frames",
+            name="验证图像序列",
+            description="检测缺失帧",
             default=True,
             options={'SKIP_SAVE'})
-    
+
     scene_range: bpy.props.BoolProperty(
-            name="Scene Range",
-            description="Consider the Frames of the Scene",
+            name="场景范围",
+            description="考虑场景的帧",
             default=False,
             #options={'SKIP_SAVE'}
             )
@@ -3304,7 +3304,7 @@ class LOOM_OT_load_image_sequence(bpy.types.Operator, ImportHelper):
 class LOOM_OT_encode_select_movie(bpy.types.Operator, ImportHelper):
     """Movie file path"""
     bl_idname = "loom.save_movie"
-    bl_label = "Save Movie File"
+    bl_label = "保存视频文件"
     bl_options = {'INTERNAL'}
     
     cursor_pos = [0,0]
@@ -3360,12 +3360,12 @@ class LOOM_OT_encode_select_movie(bpy.types.Operator, ImportHelper):
 class LOOM_OT_encode_verify_image_sequence(bpy.types.Operator):
     """Verify & Refresh Image Sequence"""
     bl_idname = "loom.image_sequence_verify"
-    bl_label = "Verify Image Sequence"
+    bl_label = "验证图像序列"
     bl_options = {'INTERNAL'}
 
     scene_range: bpy.props.BoolProperty(
-        name="Scene Range",
-        description="Consider the Frames of the Scene",
+        name="场景范围",
+        description="考虑场景的帧",
         default=True,
         options={'SKIP_SAVE'}
         )
@@ -3459,12 +3459,12 @@ class LOOM_OT_encode_verify_image_sequence(bpy.types.Operator):
 class LOOM_OT_encode_auto_paths(bpy.types.Operator):
     """Auto Paths based on the latest Loom render (hold Ctrl to force the use of the default path)"""
     bl_idname = "loom.encode_auto_paths"
-    bl_label = "Set sequence and movie path automatically"
+    bl_label = "自动设置序列和视频路径"
     bl_options = {'INTERNAL'}
 
     default_path: bpy.props.BoolProperty(
-        name="Default Output Path",
-        description="Use the default Output Path",
+        name="默认输出路径",
+        description="使用默认输出路径",
         default=False,
         options={'SKIP_SAVE'})
 
@@ -3513,9 +3513,9 @@ class LOOM_OT_encode_auto_paths(bpy.types.Operator):
 class LOOM_OT_fill_sequence_gaps(bpy.types.Operator):
     """Fill gaps in image sequence with copies of existing frames"""
     bl_idname = "loom.fill_image_sequence"
-    bl_label = "Fill gaps in image sequence with copies of previous frames?"
+    bl_label = "用前一帧的副本填充图像序列中的间隙？"
     bl_options = {'INTERNAL'}
-    
+
     sequence_path: bpy.props.StringProperty()
     scene_range: bpy.props.BoolProperty(default=True, options={'SKIP_SAVE'})
 
@@ -3601,9 +3601,9 @@ class LOOM_OT_fill_sequence_gaps(bpy.types.Operator):
 class LOOM_OT_open_folder(bpy.types.Operator):
     """Opens a certain Folder in the File Browser"""
     bl_idname = "loom.open_folder"
-    bl_label = "Open Folder"
+    bl_label = "打开文件夹"
     bl_options = {'INTERNAL'}
-    
+
     folder_path: bpy.props.StringProperty()
     
     def execute(self, context):
@@ -3637,7 +3637,7 @@ class LOOM_OT_open_folder(bpy.types.Operator):
 class LOOM_OT_open_output_folder(bpy.types.Operator):
     """Open up the Output Directory in the File Browser"""
     bl_idname = "loom.open_ouput_dir"
-    bl_label = "Open Output Directory"
+    bl_label = "打开输出目录"
     bl_options = {'REGISTER'}
     
     def execute(self, context):
@@ -3660,7 +3660,7 @@ class LOOM_OT_open_output_folder(bpy.types.Operator):
 class LOOM_OT_utils_node_cleanup(bpy.types.Operator):
     """Remove version strings from File Output Nodes"""
     bl_idname = "loom.remove_version_strings"
-    bl_label = "Remove Version Strings from File Output Nodes"
+    bl_label = "从文件输出节点移除版本字符串"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -3721,20 +3721,20 @@ class LOOM_OT_utils_node_cleanup(bpy.types.Operator):
 class LOOM_OT_open_preferences(bpy.types.Operator):
     """Preferences Window"""
     bl_idname = "loom.open_preferences"
-    bl_label = "Loom Preferences"
+    bl_label = "Loom 偏好设置"
     bl_options = {'INTERNAL'}
 
     def execute(self, context):
         bpy.ops.preferences.addon_show(module="loom")
         return {'FINISHED'}
-        
-        
+
+
 class LOOM_OT_openURL(bpy.types.Operator):
     """Open URL in default Browser"""
     bl_idname = "loom.open_url"
-    bl_label = "Documentation"
+    bl_label = "文档"
     bl_options = {'INTERNAL'}
-    
+
     url: bpy.props.StringProperty(name="URL")
     description: bpy.props.StringProperty()
 
@@ -3754,35 +3754,35 @@ class LOOM_OT_openURL(bpy.types.Operator):
 class LOOM_OT_render_terminal(bpy.types.Operator):
     """Render image sequence in terminal instance"""
     bl_idname = "loom.render_terminal"
-    bl_label = "Render Image Sequence in Terminal Instance"
+    bl_label = "在终端实例中渲染图像序列"
     bl_options = {'REGISTER', 'INTERNAL'}
 
     frames: bpy.props.StringProperty(
-        name="Frames",
-        description="Specify a range or frames to render")
+        name="帧",
+        description="指定要渲染的帧范围或单帧")
 
     threads: bpy.props.IntProperty(
-        name="CPU Threads",
-        description="Number of CPU threads to use simultaneously while rendering",
+        name="CPU 线程数",
+        description="渲染时同时使用的 CPU 线程数",
         min = 1)
 
     digits: bpy.props.IntProperty(
-        name="Digits",
-        description="Specify digits in filename",
+        name="位数",
+        description="指定文件名中的位数",
         default=4)
 
     isolate_numbers: bpy.props.BoolProperty(
-        name="Filter Raw Items",
-        description="Filter raw elements in frame input",
+        name="过滤原始项目",
+        description="过滤帧输入中的原始元素",
         default=False)
 
     render_preset: bpy.props.StringProperty(
-        name="Render Preset",
-        description="Pass a custom Preset.py")
+        name="渲染预设",
+        description="传递自定义预设.py")
 
     debug: bpy.props.BoolProperty(
-        name="Debug Arguments",
-        description="Print full argument list",
+        name="调试参数",
+        description="打印完整参数列表",
         default=False)
 
     def determine_type(self, val):
@@ -3839,35 +3839,35 @@ class LOOM_OT_render_terminal(bpy.types.Operator):
 class LOOM_OT_render_image_sequence(bpy.types.Operator):
     """Render image sequence either in background or within the UI"""
     bl_idname = "render.image_sequence"
-    bl_label = "Render Image Sequence"
+    bl_label = "渲染图像序列"
     bl_options = {'REGISTER', 'INTERNAL'}
 
     frames: bpy.props.StringProperty(
-        name="Frames",
-        description="Specify a range or single frames to render")
+        name="帧",
+        description="指定要渲染的帧范围或单帧")
 
     isolate_numbers: bpy.props.BoolProperty(
-        name="Filter Raw Items",
-        description="Filter raw elements in frame input",
+        name="过滤原始项目",
+        description="过滤帧输入中的原始元素",
         default=False)
 
     render_silent: bpy.props.BoolProperty(
-        name="Render silent",
-        description="Render without displaying the progress within the UI",
+        name="静默渲染",
+        description="渲染时不显示进度",
         default=False)
 
     digits: bpy.props.IntProperty(
-        name="Digits",
-        description="Specify digits in filename",
+        name="位数",
+        description="指定文件名中的位数",
         default=4)
-    
+
     render_preset: bpy.props.StringProperty(
-        name="Render Preset",
-        description="Pass a custom Preset.py")
+        name="渲染预设",
+        description="传递自定义预设.py")
 
     validate_scene: bpy.props.BoolProperty(
-        name="Scene Validation",
-        description="Sequencer Strips, Active Camera etc.",
+        name="场景验证",
+        description="序列器条、活动摄像机等",
         default=True)
 
     _image_formats = {'BMP': 'bmp', 'IRIS': 'iris', 'PNG': 'png', 'JPEG': 'jpg', 
@@ -4269,32 +4269,32 @@ class LOOM_OT_render_image_sequence(bpy.types.Operator):
 class LOOM_OT_render_flipbook(bpy.types.Operator):
     """Render the Contents of the Viewport"""
     bl_idname = "loom.render_flipbook"
-    bl_label = "Render Flipbook Animation"
+    bl_label = "渲染翻页动画"
     bl_options = {'REGISTER'}
 
     frames: bpy.props.StringProperty(
-        name="Frames",
-        description="Specify a range or frames to render")
-    
+        name="帧",
+        description="指定要渲染的帧范围或单帧")
+
     digits: bpy.props.IntProperty(
-        name="Digits",
-        description="Specify digits in filename",
+        name="位数",
+        description="指定文件名中的位数",
         default=4)
 
     isolate_numbers: bpy.props.BoolProperty(
-        name="Filter Raw Items",
-        description="Filter raw elements in frame input",
+        name="过滤原始项目",
+        description="过滤帧输入中的原始元素",
         default=False)
-    
+
     keep_overlays: bpy.props.BoolProperty(
-        name="Keep Overlays",
-        description="Do not turn off overlays while rendering",
+        name="保持叠加层",
+        description="渲染时不关闭叠加层",
         default=False,
         options={'SKIP_SAVE'})
 
     open_render_folder: bpy.props.BoolProperty(
-        name="Open Render Folder",
-        description="Open up the system folder when done",
+        name="打开渲染文件夹",
+        description="完成后打开系统文件夹",
         default=False,
         options={'SKIP_SAVE'})
 
@@ -4540,28 +4540,28 @@ class LOOM_OT_render_flipbook(bpy.types.Operator):
 
         split = layout.split(factor=split_factor)
         col = split.column(align=True)
-        col.label(text="Frames:")
+        col.label(text="帧：")
         col = split.column(align=True)
         sub = col.row(align=True)
         sub.operator(LOOM_OT_guess_frames.bl_idname, icon='PREVIEW_RANGE', text="")
         sub.prop(lum, "frame_input", text="")
         sub.prop(lum, "filter_input", icon='FILTER', icon_only=True)
-        sub.operator(LOOM_OT_verify_frames.bl_idname, icon='GHOST_ENABLED', text="")       
+        sub.operator(LOOM_OT_verify_frames.bl_idname, icon='GHOST_ENABLED', text="")
 
         # current/bpy.types.PreferencesSystem.html#bpy.types.PreferencesSystem.viewport_aa
         split = layout.split(factor=split_factor) # prop(pref_system, "viewport_aa")
-        split.label(text="Settings:")#Anti-Aliasing:
+        split.label(text="设置：")#Anti-Aliasing:
         row = split.row(align=True)
         row.prop(self, "keep_overlays", toggle=True, icon='OVERLAY', text="")
         row.prop(context.preferences.system, "viewport_aa", text="")
         #row.prop(context.preferences.system, "anisotropic_filter", text="")
         #row = layout.row(align=True)
 
-        row = layout.row(align=True)    
-        row.prop(self, "open_render_folder", text="Open render folder when done")
+        row = layout.row(align=True)
+        row.prop(self, "open_render_folder", text="完成后打开渲染文件夹")
 
         hlp = row.operator(LOOM_OT_openURL.bl_idname, icon='HELP', text="", emboss=False)
-        hlp.description = "Open Loom Documentation on Github"
+        hlp.description = "在 Github 上打开 Loom 文档"
         hlp.url = bl_info["doc_url"]
 
     def invoke(self, context, event):
@@ -4585,7 +4585,7 @@ class LOOM_OT_render_flipbook(bpy.types.Operator):
 class LOOM_OT_playblast(bpy.types.Operator):
     """Playback rendered image sequence using the default or blender player"""
     bl_idname = "loom.playblast"
-    bl_label = "Playblast Sequence"
+    bl_label = "播放序列"
     bl_options = {'REGISTER', 'INTERNAL'}
     
     # Todo! Just a temporary solution.
@@ -4760,7 +4760,7 @@ class LOOM_OT_playblast(bpy.types.Operator):
 class LOOM_OT_clear_dialog(bpy.types.Operator):
     """Clear Log Collection"""
     bl_idname = "loom.clear_log"
-    bl_label = "Clear Log"
+    bl_label = "清除日志"
     bl_options = {'INTERNAL'}
 
     def execute(self, context):
@@ -4771,7 +4771,7 @@ class LOOM_OT_clear_dialog(bpy.types.Operator):
 class LOOM_OT_verify_terminal(bpy.types.Operator):
     """Search and verify system terminal"""
     bl_idname = "loom.verify_terminal"
-    bl_label = "Verify Terminal"
+    bl_label = "验证终端"
     bl_options = {'INTERNAL'}
 
     def verify_app(self, cmd):
@@ -4829,57 +4829,57 @@ class LOOM_PG_generic_arguments(bpy.types.PropertyGroup):
 class LOOM_OT_run_terminal(bpy.types.Operator):
     """Run instance of an application in a new terminal"""
     bl_idname = "loom.run_terminal"
-    bl_label = "Run Application in Terminal"
+    bl_label = "在终端中运行应用程序"
     bl_options = {'INTERNAL'}
 
     binary: bpy.props.StringProperty(
-        name="Binary Path",
-        description="Binary Path",
+        name="二进制路径",
+        description="二进制路径",
         maxlen=1024,
         subtype='FILE_PATH',
         default=bpy.app.binary_path)
 
     arguments: bpy.props.StringProperty(
-        name="Command Line Arguments",
-        description='[args …] "[file]" [args …]')
+        name="命令行参数",
+        description='[参数 …] "[文件]" [参数 …]')
 
     argument_collection: bpy.props.CollectionProperty(
-        name="Command Line Arguments",
-        description="Allows passing a dictionary",
+        name="命令行参数",
+        description="允许传递字典",
         type=LOOM_PG_generic_arguments)
 
     debug_arguments: bpy.props.BoolProperty(
-        name="Debug Arguments",
-        description="Print full argument list",
+        name="调试参数",
+        description="打印完整参数列表",
         default=False)
 
     terminal_instance: bpy.props.BoolProperty(
-        name="New Terminal Instance",
-        description="Opens Blender in a new Terminal Window",
+        name="新终端实例",
+        description="在新终端窗口中打开 Blender",
         default=True)
 
     force_bash: bpy.props.BoolProperty(
-        name="Force Bash File",
-        description="Use bash file instead of passing the arguments",
+        name="强制 Bash 文件",
+        description="使用 bash 文件而不是传递参数",
         default=False)
 
     bash_name: bpy.props.StringProperty(
-        name="Name of bash file",
-        description="Name of bash file")
+        name="Bash 文件名",
+        description="Bash 文件名")
 
     communicate: bpy.props.BoolProperty(
-        name="Batch process",
-        description="Wait for other process",
+        name="批处理",
+        description="等待其他进程",
         default=False)
-    
+
     shutdown: bpy.props.BoolProperty(
-        name="Hibernate when done",
-        description="Hibernate when done",
+        name="完成后休眠",
+        description="完成后休眠",
         default=False)
 
     pause: bpy.props.BoolProperty(
-        name="Confirm when done",
-        description="Confirm when done",
+        name="完成后确认",
+        description="完成后确认",
         default=True)
     
     def environment_variables(self):
@@ -5122,7 +5122,7 @@ class LOOM_OT_run_terminal(bpy.types.Operator):
 class LOOM_OT_delete_bash_files(bpy.types.Operator):
     """Delete temporary bash file"""
     bl_idname = "loom.delete_bashfiles"
-    bl_label = "Delete temporary Bash File"
+    bl_label = "删除临时 Bash 文件"
     bl_options = {'INTERNAL'}
     
     def execute(self, context):
@@ -5148,7 +5148,7 @@ class LOOM_OT_delete_bash_files(bpy.types.Operator):
 class LOOM_OT_delete_file(bpy.types.Operator):
     """Deletes a file by given path"""
     bl_idname = "loom.delete_file"
-    bl_label = "Remove a File"
+    bl_label = "移除文件"
     bl_options = {'INTERNAL'}
     
     file_path: bpy.props.StringProperty()
@@ -5168,7 +5168,7 @@ class LOOM_OT_delete_file(bpy.types.Operator):
 class LOOM_OT_utils_create_directory(bpy.types.Operator):
     """Create a directory based on a given path"""
     bl_idname = "loom.create_directory"
-    bl_label = "Create given directory"
+    bl_label = "创建指定目录"
     bl_options = {'INTERNAL'}
     
     directory: bpy.props.StringProperty(subtype='DIR_PATH')
@@ -5201,7 +5201,7 @@ class LOOM_OT_utils_create_directory(bpy.types.Operator):
 class LOOM_OT_utils_marker_unbind(bpy.types.Operator):
     """Unbind Markers in Selection"""
     bl_idname = "loom.unbind_markers"
-    bl_label = "Unbind Markers from Cameras in Selection"
+    bl_label = "解绑选中对象中的标记"
     bl_options = {'REGISTER', 'UNDO'}
     
     @classmethod
@@ -5220,12 +5220,12 @@ class LOOM_OT_utils_marker_unbind(bpy.types.Operator):
 class LOOM_OT_utils_marker_rename(bpy.types.Operator):
     """Rename Markers in Selection"""
     bl_idname = "loom.rename_markers"
-    bl_label = "Rename Markers in Selection"
+    bl_label = "批量重命名标记"
     bl_options = {'REGISTER', 'UNDO'}
     bl_property = "new_name"
-    
+
     new_name: bpy.props.StringProperty(
-        name="New Name",
+        name="新名称",
         default="$SCENE_$LENS_$F4_###")
     
     @classmethod
@@ -5265,7 +5265,7 @@ class LOOM_OT_utils_marker_rename(bpy.types.Operator):
 class LOOM_OT_utils_marker_generate(bpy.types.Operator):
     """Add Markers from Cameras in Selection"""
     bl_idname = "loom.generate_markers"
-    bl_label = "Add Markers based on Selected Cameras"
+    bl_label = "基于选中摄像机添加标记"
     bl_options = {'REGISTER', 'UNDO'}
 
     def set_playhead(self, context):
@@ -5273,25 +5273,25 @@ class LOOM_OT_utils_marker_generate(bpy.types.Operator):
             self.frame = context.scene.frame_current
         else:
             self.frame = max(
-                context.scene.frame_start, 
+                context.scene.frame_start,
                 max([m.frame for m in context.scene.timeline_markers], default=1))
-                
+
     offset: bpy.props.IntProperty(
-        name="Frame Offset",
-        description="Offset Markers by Frame",
+        name="帧偏移",
+        description="按帧偏移标记",
         default=1, min=1)
-        
+
     frame: bpy.props.IntProperty(
-        name="Insert on Frame",
+        name="插入帧",
         default=1)
-    
+
     sort_reverse: bpy.props.BoolProperty(
-        name = "Add Camera Markers in reverse Order",
-        default = False)
+        name="反向添加摄像机标记",
+        default=False)
 
     playhead: bpy.props.BoolProperty(
-        name = "Insert Markers at Playhead Position",
-        default = False,
+        name="在播放头位置插入标记",
+        default=False,
         update=set_playhead)
 
     @classmethod
@@ -5353,7 +5353,7 @@ class LOOM_OT_utils_marker_generate(bpy.types.Operator):
 class LOOM_OT_select_project_directory(bpy.types.Operator, ExportHelper):
     """Select Project Directory using the File Browser"""
     bl_idname = "loom.select_project_directory"
-    bl_label = "Project Directory"
+    bl_label = "项目目录"
     bl_options = {'INTERNAL'}
 
     filename_ext = ""
@@ -5384,10 +5384,10 @@ class LOOM_OT_select_project_directory(bpy.types.Operator, ExportHelper):
 class LOOM_OT_project_dialog(bpy.types.Operator):
     """Loom — Set Project Dialog"""
     bl_idname = "loom.set_project_dialog"
-    bl_label = "Setup Project Directory"
+    bl_label = "设置项目目录"
     bl_options = {'REGISTER'}
-    
-    directory: bpy.props.StringProperty(name="Project Directory")
+
+    directory: bpy.props.StringProperty(name="项目目录")
 
     @classmethod
     def poll(cls, context):
@@ -5473,16 +5473,16 @@ class LOOM_OT_project_dialog(bpy.types.Operator):
 class LOOM_OT_bake_globals(bpy.types.Operator):
     """Apply Globals or Restore Filepaths"""
     bl_idname = "loom.globals_bake"
-    bl_label = "Bake Globals"
+    bl_label = "烘焙全局变量"
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
-    
+
     action: bpy.props.EnumProperty(
-        name="Action",
-        description="Apply or Restore Paths",
+        name="操作",
+        description="应用或恢复路径",
         default = 'APPLY',
         items=(
-            ('RESET', "Restore User Paths", "", "RECOVER_LAST", 1),
-            ('APPLY', "Apply Globals", "", "WORLD_DATA", 2)))
+            ('RESET', "恢复用户路径", "", "RECOVER_LAST", 1),
+            ('APPLY', "应用全局变量", "", "WORLD_DATA", 2)))
 
     def out_nodes(self, scene):
         if bpy.app.version < (5, 0, 0):
@@ -5609,28 +5609,28 @@ class LOOM_OT_bake_globals(bpy.types.Operator):
 
 
 class LOOM_OT_output_paths(bpy.types.Operator):
-    """Convert all output paths either into relative or absolute paths"""
+    """将所有输出路径转换为相对或绝对路径"""
     bl_idname = "loom.output_paths"
-    bl_label = "Convert Output File Paths"
+    bl_label = "转换输出文件路径"
     bl_options = {'REGISTER', 'UNDO'}
-    
+
     action: bpy.props.EnumProperty(
-        name="Convert Paths to",
-        description="Absolute or relative Paths",
+        name="转换路径为",
+        description="绝对或相对路径",
         default = 'RELATIVE',
         items=(
-            ('ABSOLUTE', "Absolute Paths", "", "CURVE_PATH", 1),
-            ('RELATIVE', "Relative Paths", "", "CON_FOLLOWPATH", 2)),
+            ('ABSOLUTE', "绝对路径", "", "CURVE_PATH", 1),
+            ('RELATIVE', "相对路径", "", "CON_FOLLOWPATH", 2)),
         options={'SKIP_SAVE'})
-    
+
     out_path: bpy.props.BoolProperty(
-        name="Convert output path",
-        description="Convert the regular output path",
+        name="转换输出路径",
+        description="转换常规输出路径",
         default=True)
-        
+
     comp_paths: bpy.props.BoolProperty(
-        name="Convert paths used in Comp",
-        description="Convert the paths of all file output nodes used in comp",
+        name="转换合成器中使用的路径",
+        description="转换合成器中所有文件输出节点的路径",
         default=True)
     
     def convert_path(self, filepath, relative=True):
@@ -5691,18 +5691,18 @@ class LOOM_OT_output_paths(bpy.types.Operator):
 
 class LOOM_OT_utils_framerange(bpy.types.Operator):
     bl_idname = "loom.shot_range"
-    bl_label = "Shot Range"
-    bl_description = "Set Frame Range to 1001-1241"
+    bl_label = "镜头范围"
+    bl_description = "设置帧范围为 1001-1241"
     bl_options = {'REGISTER', 'UNDO'}
-    
+
     start: bpy.props.IntProperty(
-        name="Start Frame",
-        description="Custom start frame",
+        name="起始帧",
+        description="自定义起始帧",
         default=1001)
-    
+
     end: bpy.props.IntProperty(
-        name="End Frame",
-        description="Custom end frame",
+        name="结束帧",
+        description="自定义结束帧",
         default=1241)
 
     @classmethod
@@ -5937,7 +5937,7 @@ def draw_loom_preset_header(self, context):
     preset_dir = context.preferences.addons[__name__].preferences.render_presets_path
     row = layout.row(align=True)
     row.operator(LOOM_OT_open_folder.bl_idname, icon="RENDER_STILL", text="", emboss=False).folder_path = preset_dir
-    row.label(text=" Loom Render Presets")
+    row.label(text=" Loom 渲染预设")
     layout.separator(factor=0.3)
 
 
@@ -5980,19 +5980,19 @@ class LOOM_MT_render_menu(bpy.types.Menu):
         prefs = context.preferences.addons[__name__].preferences
         layout = self.layout
         layout.operator(LOOM_OT_render_dialog.bl_idname, icon='SEQUENCE') #RENDER_ANIMATION, SEQ_LUMA_WAVEFORM
-        layout.operator(LOOM_OT_batch_dialog.bl_idname, icon='FILE_MOVIE', text="Batch Render and Encode")
+        layout.operator(LOOM_OT_batch_dialog.bl_idname, icon='FILE_MOVIE', text="批量渲染和编码")
         layout.operator_context = 'INVOKE_DEFAULT' #'INVOKE_AREA'
         layout.operator(LOOM_OT_render_flipbook.bl_idname, icon='RENDER_RESULT') #SPHERE
         if prefs.playblast_flag:
-            layout.operator(LOOM_OT_playblast.bl_idname, icon='PLAY', text="Loom Playblast")
+            layout.operator(LOOM_OT_playblast.bl_idname, icon='PLAY', text="Loom 播放预览")
         layout.separator()
-        layout.operator(LOOM_OT_encode_dialog.bl_idname, icon='RENDER_ANIMATION', text="Encode Image Sequence")
+        layout.operator(LOOM_OT_encode_dialog.bl_idname, icon='RENDER_ANIMATION', text="编码图像序列")
         layout.operator(LOOM_OT_rename_dialog.bl_idname, icon="SORTALPHA")
         layout.separator()
         #layout.operator(LOOM_OT_project_dialog.bl_idname, icon="OUTLINER") #PRESET
         layout.operator(LOOM_OT_open_output_folder.bl_idname, icon='FOLDER_REDIRECT')
         #if bpy.app.version < (3, 0, 0): # Test again, if released
-        layout.operator(LOOM_OT_open_preferences.bl_idname, icon='PREFERENCES', text="Loom Preferences")
+        layout.operator(LOOM_OT_open_preferences.bl_idname, icon='PREFERENCES', text="Loom 偏好设置")
 
 def draw_loom_render_menu(self, context):
     layout = self.layout
@@ -6006,17 +6006,17 @@ class LOOM_MT_marker_menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator(LOOM_OT_utils_marker_generate.bl_idname, icon='CON_CAMERASOLVER', text="Markers from Cameras")
-        layout.operator(LOOM_OT_utils_marker_unbind.bl_idname, icon='UNLINKED', text="Unbind Selected Markers")
-        layout.operator(LOOM_OT_utils_marker_rename.bl_idname, icon='FONT_DATA', text="Batch Rename Markers")
-        
+        layout.operator(LOOM_OT_utils_marker_generate.bl_idname, icon='CON_CAMERASOLVER', text="从摄像机生成标记")
+        layout.operator(LOOM_OT_utils_marker_unbind.bl_idname, icon='UNLINKED', text="解绑选中标记")
+        layout.operator(LOOM_OT_utils_marker_rename.bl_idname, icon='FONT_DATA', text="批量重命名标记")
+
 def draw_loom_marker_menu(self, context):
     layout = self.layout
     layout.separator()
     #layout.menu(LOOM_MT_marker_menu.bl_idname)
-    layout.operator(LOOM_OT_utils_marker_generate.bl_idname, icon='CON_CAMERASOLVER', text="Markers from Cameras")
-    layout.operator(LOOM_OT_utils_marker_unbind.bl_idname, icon='UNLINKED', text="Unbind Selected Markers")
-    layout.operator(LOOM_OT_utils_marker_rename.bl_idname, icon='FONT_DATA', text="Batch Rename Markers")
+    layout.operator(LOOM_OT_utils_marker_generate.bl_idname, icon='CON_CAMERASOLVER', text="从摄像机生成标记")
+    layout.operator(LOOM_OT_utils_marker_unbind.bl_idname, icon='UNLINKED', text="解绑选中标记")
+    layout.operator(LOOM_OT_utils_marker_rename.bl_idname, icon='FONT_DATA', text="批量重命名标记")
 
 
 def draw_loom_version_number(self, context):
@@ -6088,7 +6088,7 @@ def draw_loom_outputpath(self, context):
         row.operator(LOOM_OT_open_output_folder.bl_idname, icon='DISK_DRIVE', text="", emboss=False)
 
     if scn.render.is_movie_format:
-        row.label(text="Video file formats are not supported by Loom")
+        row.label(text="Loom 不支持视频文件格式")
     else:
         row.label(text="{}".format(file_path if not scn.loom.is_rendering else scn.render.filepath))
 
@@ -6126,7 +6126,7 @@ def draw_loom_compositor_paths(self, context):
         layout.separator()
         box = layout.box()
         row = box.row()
-        row.label(text="Compositor Output Nodes", icon='NODETREE')
+        row.label(text="合成器输出节点", icon='NODETREE')
         icon = 'MODIFIER' if lum.comp_image_settings else 'MODIFIER_DATA'
         row.prop(lum, "comp_image_settings", icon=icon, text="", emboss=False)
                 
@@ -6176,7 +6176,7 @@ def draw_loom_metadata(self, context):
         txt = " " + note_text.replace("\\n", " ¶ ")
         icn = 'MESH_UVSPHERE'
         if scn.render.is_movie_format:
-            txt = " Video file formats are not supported by Loom"
+            txt = " Loom 不支持视频文件格式"
             icn = 'ERROR'
         row.label(text=txt)
         row.label(text="", icon=icn)
@@ -6200,7 +6200,7 @@ def draw_loom_project(self, context):
 
 
 class LOOM_PT_dopesheet(bpy.types.Panel):
-    """Dopesheet Render Options"""
+    """Dopesheet 渲染选项"""
     bl_label = "Loom"
     bl_space_type = 'DOPESHEET_EDITOR'
     bl_region_type = 'HEADER'
@@ -6219,22 +6219,22 @@ class LOOM_PT_dopesheet(bpy.types.Panel):
 
         col = layout.column() #col.label(text="Loom", icon='RENDER_STILL') #col = layout.column()
         row = col.row(align=True)
-        row.prop(lum, "scene_selection", icon="SCENE_DATA", text="") #icon='SHAPEKEY_DATA', 
-        kdlg = row.operator(LOOM_OT_selected_keys_dialog.bl_idname, text="Render Selected Keyframes")
+        row.prop(lum, "scene_selection", icon="SCENE_DATA", text="") #icon='SHAPEKEY_DATA',
+        kdlg = row.operator(LOOM_OT_selected_keys_dialog.bl_idname, text="渲染所选关键帧")
         kdlg.limit_to_object_selection = lum.scene_selection
         kdlg.flipbook_dialog = lum.flipbook_flag
         #row.prop(lum, "scene_range", icon="CON_ACTION", text="")
         #kdlg.limit_to_scene_frames = lum.scene_range
-        col.separator(factor=0.05) 
+        col.separator(factor=0.05)
         row = col.row(align=True)
         row.prop(lum, "all_markers_flag", icon="TEMP", text="") #"TIME"
-        mdlg_txt = "Render All Markers" if lum.all_markers_flag else "Render Active Markers"
+        mdlg_txt = "渲染所有标记" if lum.all_markers_flag else "渲染活动标记"
         mdlg = row.operator(LOOM_OT_selected_makers_dialog.bl_idname, text=mdlg_txt) # icon='PMARKER_ACT',
         mdlg.all_markers = lum.all_markers_flag #PMARKER_SEL
         mdlg.flipbook_dialog = lum.flipbook_flag
 
         col.separator(factor=1.5)
-        rdlg_txt = "Render Flipbook Animation" if lum.flipbook_flag else "Render Image Sequence"
+        rdlg_txt = "渲染翻页动画" if lum.flipbook_flag else "渲染图像序列"
         rdlg_icon = 'RENDER_RESULT' if lum.flipbook_flag else 'SEQUENCE' # RENDER_RESULT, 'SEQ_PREVIEW'
         rdlg = col.operator(LOOM_OT_render_input_dialog.bl_idname, icon=rdlg_icon, text=rdlg_txt)
         rdlg.flipbook_dialog = lum.flipbook_flag
@@ -6263,7 +6263,7 @@ def draw_loom_render_presets(self, context):
     row.menu(LOOM_MT_render_presets.__name__, text=LOOM_MT_render_presets.bl_label)
     row.operator(OT_AddMyPreset.bl_idname, text="", icon='ADD')
     row.operator(OT_AddMyPreset.bl_idname, text="", icon='REMOVE').remove_active = True
-    row.label(text="Render Presets")
+    row.label(text="渲染预设")
     """
     row.popover(panel=LOOM_PT_render_presets.__name__, text="", icon='PRESET')
 
