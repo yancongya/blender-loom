@@ -1,18 +1,16 @@
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
-#  This program is free software; you can redistribute it and/or
-#  modify it under the terms of the GNU General Public License
-#  as published by the Free Software Foundation; either version 2
-#  of the License, or (at your option) any later version.
+#  本程序是自由软件；您可以根据自由软件基金会发布的
+#  GNU 通用公共许可证条款重新发布和/或修改本程序；
+#  许可证版本 2 或（由您选择）任何更高版本。
 #
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
+#  本程序的发布是希望它能发挥作用，但不提供任何保证；
+#  甚至没有适销性或特定用途适用性的默示保证。
+#  有关详细信息，请参阅 GNU 通用公共许可证。
 #
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software Foundation,
-#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#  您应该已经收到了 GNU 通用公共许可证的副本
+#  以及本程序；如果没有，请写信给自由软件基金会，
+#  地址：51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA。
 #
 # ##### END GPL LICENSE BLOCK #####
 
